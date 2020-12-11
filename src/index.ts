@@ -12,28 +12,28 @@ export function safeAwait<T>(promise: Promise<T>) {
     });
 }
 
-export function safeCall<T extends (...args: any[]) => any>(
+export function safeCall<T extends any[], R>(
   thisArg: unknown,
-  value: T,
-  ...args: Parameters<T>
+  value: (...args: T) => R,
+  ...args: T
 ) {
   try {
-    return [null, value.call(thisArg, ...args)] as [null, ReturnType<T>];
+    return [null, value.call(thisArg, ...args)] as [null, R];
   } catch (error) {
     return [new SafeCatched(error)] as [SafeCatched];
   }
 }
 
-export function safeApply<T extends (...args: any[]) => any>(
+export function safeApply<T extends any[], R>(
   thisArg: unknown,
-  value: T,
-  args?: Parameters<T>
+  value: (...args: T) => R,
+  args?: T
 ) {
   try {
     return [
       null,
       args === undefined ? value.apply(thisArg) : value.apply(thisArg, args),
-    ] as [null, ReturnType<T>];
+    ] as [null, R];
   } catch (error) {
     return [new SafeCatched(error)] as [SafeCatched];
   }

@@ -1,5 +1,5 @@
 import { SafeCatched, safeAwait, safeCall, safeApply } from '../src';
-import { delay } from './helper';
+import { checkType, delay, test1, test2 } from './helper';
 
 class Foo {
   bar = { baz: 7 };
@@ -50,5 +50,12 @@ describe('safe-catched', () => {
     const [catched, value] = await safeAwait(foo.f4());
     expect(catched).toEqual(new SafeCatched(123));
     expect(value).toBeUndefined();
+  });
+
+  it('type', async () => {
+    const foo = new Foo();
+    checkType<[SafeCatched] | [null, Foo]>(safeCall(undefined, test1, foo));
+    checkType<[SafeCatched] | [null, Foo]>(safeApply(undefined, test1, [foo]));
+    checkType<[SafeCatched] | [null, Foo]>(await safeAwait(test2(foo)));
   });
 });
