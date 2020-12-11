@@ -1,4 +1,4 @@
-export class SafeCatched {
+export class Caught {
   constructor(public error: unknown) {}
 }
 
@@ -8,7 +8,7 @@ export function safeAwait<T>(promise: Promise<T>) {
       return [null, data] as [null, T];
     })
     .catch((error) => {
-      return [new SafeCatched(error)] as [SafeCatched];
+      return [new Caught(error)] as [Caught];
     });
 }
 
@@ -20,7 +20,7 @@ export function safeCall<T extends any[], R>(
   try {
     return [null, value.call(thisArg, ...args)] as [null, R];
   } catch (error) {
-    return [new SafeCatched(error)] as [SafeCatched];
+    return [new Caught(error)] as [Caught];
   }
 }
 
@@ -35,6 +35,6 @@ export function safeApply<T extends any[], R>(
       args === undefined ? value.apply(thisArg) : value.apply(thisArg, args),
     ] as [null, R];
   } catch (error) {
-    return [new SafeCatched(error)] as [SafeCatched];
+    return [new Caught(error)] as [Caught];
   }
 }

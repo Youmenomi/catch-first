@@ -1,4 +1,4 @@
-import { SafeCatched, safeAwait, safeCall, safeApply } from '../src';
+import { Caught, safeAwait, safeCall, safeApply } from '../src';
 import { checkType, delay, test1, test2 } from './helper';
 
 class Foo {
@@ -22,40 +22,40 @@ class Foo {
 describe('catch-first', () => {
   const foo = new Foo();
   it('safeCall', () => {
-    const [catched, value] = safeCall(foo, foo.f1, 1, 2);
-    expect(catched).toBe(null);
+    const [caught, value] = safeCall(foo, foo.f1, 1, 2);
+    expect(caught).toBe(null);
     expect(value).toBe(10);
   });
   it('safeCall catches', () => {
-    const [catched, value] = safeCall(foo, foo.f2);
-    expect(catched).toEqual(new SafeCatched(123));
+    const [caught, value] = safeCall(foo, foo.f2);
+    expect(caught).toEqual(new Caught(123));
     expect(value).toBeUndefined();
   });
   it('safeApply', () => {
-    const [catched, value] = safeApply(foo, foo.f1, [1, 2]);
-    expect(catched).toBe(null);
+    const [caught, value] = safeApply(foo, foo.f1, [1, 2]);
+    expect(caught).toBe(null);
     expect(value).toBe(10);
   });
   it('safeApply catches', () => {
-    const [catched, value] = safeApply(foo, foo.f2);
-    expect(catched).toEqual(new SafeCatched(123));
+    const [caught, value] = safeApply(foo, foo.f2);
+    expect(caught).toEqual(new Caught(123));
     expect(value).toBeUndefined();
   });
   it('safeAwait', async () => {
-    const [catched, value] = await safeAwait(foo.f3(1, 2));
-    expect(catched).toBe(null);
+    const [caught, value] = await safeAwait(foo.f3(1, 2));
+    expect(caught).toBe(null);
     expect(value).toBe(10);
   });
   it('safeAwait catches', async () => {
-    const [catched, value] = await safeAwait(foo.f4());
-    expect(catched).toEqual(new SafeCatched(123));
+    const [caught, value] = await safeAwait(foo.f4());
+    expect(caught).toEqual(new Caught(123));
     expect(value).toBeUndefined();
   });
 
   it('type', async () => {
     const foo = new Foo();
-    checkType<[SafeCatched] | [null, Foo]>(safeCall(undefined, test1, foo));
-    checkType<[SafeCatched] | [null, Foo]>(safeApply(undefined, test1, [foo]));
-    checkType<[SafeCatched] | [null, Foo]>(await safeAwait(test2(foo)));
+    checkType<[Caught] | [null, Foo]>(safeCall(undefined, test1, foo));
+    checkType<[Caught] | [null, Foo]>(safeApply(undefined, test1, [foo]));
+    checkType<[Caught] | [null, Foo]>(await safeAwait(test2(foo)));
   });
 });
