@@ -19,7 +19,7 @@ class Foo {
   }
 }
 
-describe('safe-catched', () => {
+describe('catch-first', () => {
   const foo = new Foo();
   it('safeCall', () => {
     const [catched, value] = safeCall(foo, foo.f1, 1, 2);

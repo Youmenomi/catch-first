@@ -1,5 +1,5 @@
 {
-  "name": "safe-catched",
+  "name": "catch-first",
   "version": "0.1.1",
   "description": "Catch-first can simplify the code and handle exceptions better and more safely.",
   "keywords": [
@@ -14,8 +14,8 @@
     "exception",
     "handler"
   ],
-  "main": "dist/cjs/safe-catched.cjs.js",
-  "module": "dist/esm/safe-catched.esm.js",
+  "main": "dist/cjs/catch-first.cjs.js",
+  "module": "dist/esm/catch-first.esm.js",
   "types": "dist/types/index.d.ts",
   "files": [
     "dist"
@@ -44,14 +44,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Youmenomi/safe-catched.git"
+    "url": "git+https://github.com/Youmenomi/catch-first.git"
   },
   "author": "Dean Yao <youmenomi@gmail.com>",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/Youmenomi/safe-catched/issues"
+    "url": "https://github.com/Youmenomi/catch-first/issues"
   },
-  "homepage": "https://github.com/Youmenomi/safe-catched#readme",
+  "homepage": "https://github.com/Youmenomi/catch-first#readme",
   "devDependencies": {
     "@babel/plugin-proposal-class-properties": "^7.12.1",
     "@babel/plugin-proposal-decorators": "^7.12.1",

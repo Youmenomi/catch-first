@@ -19,7 +19,7 @@ export default [].concat(
     {
       file: `dist/umd/${pkg.name}.umd.js`,
       format: 'umd',
-      name: 'safeCatched',
+      name: 'catchFirst',
     },
     { withMin: true }
   )
