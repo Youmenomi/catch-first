@@ -56,20 +56,35 @@ describe('catch-first', () => {
     }
   });
   it('safeAwait done', async () => {
-    const result = await safeAwait(foo.f3(1, 2));
-    expect(result.length).toBe(CatchFirst.done);
-    if (result.length === CatchFirst.done) {
-      const [caught, value] = result;
-      expect(caught).toBe(null);
-      expect(value).toBe(10);
+    {
+      const result = await safeAwait(foo.f3(1, 2));
+      expect(result.length).toBe(CatchFirst.done);
+      if (result.length === CatchFirst.done) {
+        const [caught, value] = result;
+        expect(caught).toBe(null);
+        expect(value).toBe(10);
+      }
+    }
+
+    {
+      //@ts-expect-error
+      const result = await safeAwait('test');
+      expect(result.length).toBe(CatchFirst.done);
+      if (result.length === CatchFirst.done) {
+        const [caught, value] = result;
+        expect(caught).toBe(null);
+        expect(value).toBe('test');
+      }
     }
   });
   it('safeAwait caught', async () => {
-    const result = await safeAwait(foo.f4());
-    expect(result.length).toBe(CatchFirst.caught);
-    if (result.length === CatchFirst.caught) {
-      const [caught] = result;
-      expect(caught).toEqual(123);
+    {
+      const result = await safeAwait(foo.f4());
+      expect(result.length).toBe(CatchFirst.caught);
+      if (result.length === CatchFirst.caught) {
+        const [caught] = result;
+        expect(caught).toEqual(123);
+      }
     }
   });
 
