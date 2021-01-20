@@ -67,8 +67,7 @@ describe('catch-first', () => {
     }
 
     {
-      //@ts-expect-error
-      const result = await safeAwait('test');
+      const result = await safeAwait(Promise.resolve('test'));
       expect(result.length).toBe(CatchFirst.done);
       if (result.length === CatchFirst.done) {
         const [caught, value] = result;

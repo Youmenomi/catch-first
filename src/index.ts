@@ -4,7 +4,7 @@ export const CatchFirst = {
 } as const;
 
 export function safeAwait<T>(promise: Promise<T>) {
-  return Promise.resolve(promise)
+  return promise
     .then((data) => {
       return [null, data] as [null, T];
     })
